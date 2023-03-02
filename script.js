@@ -21,8 +21,12 @@ $(function () {
     console.log(textBox);
     var parent = $(this).parent().attr('id');
     console.log(parent);
-    localStorage.setItem(parent, textBox);
-  })
+    if (textBox = null) {
+      return;
+    } else {
+      localStorage.setItem(parent, textBox);
+    }
+  });
   $(textArea).each(function () {
     var parent = $(this).parent().attr('id');
     var text = localStorage.getItem(parent);
