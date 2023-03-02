@@ -2,9 +2,10 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 var time = dayjs().format('H');
-var timeSlots = document.body.children[1].children;
-console.log (time);
-console.log (timeSlots);
+var timeSlots = $('#hour-9, #hour-10, #hour-11, #hour-12, #hour-13, #hour-14, #hour-15, #hour-16, #hour-17',)
+var textArea = document.querySelectorAll('textbox')
+console.log(time);
+console.log(timeSlots);
 
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
@@ -14,34 +15,50 @@ $(function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
   //
+  $('button').click(function (event) {
+    event.preventDefault();
+    var textBox = $(this).siblings('textarea').val();
+    console.log(textBox);
+    var parent = $(this).parent().attr('id');
+    console.log(parent);
+    localStorage.setItem(parent, textBox);
+  })
+  $(textArea).each(function () {
+    var parent = $(this).parent().attr('id');
+    var text = localStorage.getItem(parent);
+    console.log(text);
+    $(this).text(text);
+  })
+
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
   // attribute of each time-block be used to conditionally add or remove the
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
-
+  $(timeSlots).each(function () {
+    var idVal = $(this).attr('id').replace('hour-', '');
+    console.log(idVal);
+    if (idVal == time) {
+      $(this).addClass('present');
+      $(this).removeClass('past');
+      $(this).removeClass('future');
+      console.log(idVal + ' is present ' + time)
+    } else if (idVal < time) {
+      $(this).addClass('past');
+      $(this).removeClass('present');
+      $(this).removeClass('future');
+      console.log(idVal + ' is past ' + time)
+    } else if (idVal > time) {
+      $(this).addClass('future');
+      $(this).removeClass('past');
+      $(this).removeClass('present');
+      console.log(idVal + ' is future ' + time)
+    }
+  });
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
 });
-$(document).ready(function () {
-  $(timeSlots).each(function () {
-    var idVal = $(this).attr('id').replace('hour-', '');
-    console.log (idVal);
-    if (idVal == time) {
-      $(this).addClass('present');
-      $(this).removeClass('past');
-      $(this).removeClass('future');
-    } else if (idVal <= time) {
-      $(this).addClass('past');
-      $(this).removeClass('present');
-      $(this).removeClass('future');
-    } else if (idVal >= time) {
-      $(this).addClass('future');
-      $(this).removeClass('past');
-      $(this).removeClass('present');
-    }
-  });
-});
+
