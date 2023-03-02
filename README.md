@@ -4,4 +4,4 @@ In this proejct i am tasked with creating an event listener to save logged data 
 [imagew of webpage](assets/webpageimg.PNG)
 ## How to access the page
 GitHub repository: https://github.com/Jake-Orch/Work-day-schedule-project
-Deployed website:
+Deployed website: https://jake-orch.github.io/Work-day-schedule-project/
