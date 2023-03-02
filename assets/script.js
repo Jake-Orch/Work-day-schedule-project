@@ -5,7 +5,7 @@ var timeSlots = $('#hour-9, #hour-10, #hour-11, #hour-12, #hour-13, #hour-14, #h
 var textArea = document.querySelectorAll('textarea');
 
 $(function () {
-
+//This function saves the users notes into the local storage and assignes the key as the ID of the div which they wrote their notes in for me to use later when assigning to notes back to the webpage.
   $('button').click(function (event) {
     event.preventDefault();
     var textBox = $(this).siblings('textarea').val();
@@ -15,6 +15,7 @@ $(function () {
     }
   });
 
+  // this function checks weather the hour of each section on the page is equal to, lesser than or larger than the current time, using this information I assign the classes .past, .present and .future to the correct classes.
   $(timeSlots).each(function () {
     var idVal = $(this).attr('id').replace('hour-', '');
     // someone from askBCS reccomended using another dayjs link and using this to get the current hour as apposed to using dayjs().format(H) as it was causing issues here.
@@ -33,7 +34,7 @@ $(function () {
       $(this).removeClass('present');
     }
   });
-
+// this function is used to retrieve the data stored in the local storage and use the id of each div to select the correct peice of stored data for each section of the page.
   function init() {
     $(textArea).each(function () {
       var parent = $(this).parent().attr('id');
@@ -42,7 +43,6 @@ $(function () {
     })
   };
   init()
-
+// this peice of code is to append the date to the header of the webpage
   $('header').append(date);
-  console.log(date);
 });
