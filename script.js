@@ -15,24 +15,26 @@ $(function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
   //
+  function init() {
+  $(textArea).each(function () {
+    var parent = $(this).parent().attr('id');
+    var text = JSON.parse(localStorage.getItem(parent));
+    console.log(text);
+    $(this).text(text);
+  })};
+
   $('button').click(function (event) {
     event.preventDefault();
     var textBox = $(this).siblings('textarea').val();
     console.log(textBox);
     var parent = $(this).parent().attr('id');
     console.log(parent);
-    if (textBox = null) {
-      return;
-    } else {
-      localStorage.setItem(parent, textBox);
+    if (textBox !== '') {
+      localStorage.setItem(parent, JSON.stringify(textBox));
+      console.log('stored');
+      init()
     }
   });
-  $(textArea).each(function () {
-    var parent = $(this).parent().attr('id');
-    var text = localStorage.getItem(parent);
-    console.log(text);
-    $(this).text(text);
-  })
 
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
