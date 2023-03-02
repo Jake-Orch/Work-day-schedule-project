@@ -2,8 +2,9 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 var time = dayjs().format('H');
+var date = dayjs().format('DD-MM-YYYY')
 var timeSlots = $('#hour-9, #hour-10, #hour-11, #hour-12, #hour-13, #hour-14, #hour-15, #hour-16, #hour-17',)
-var textArea = document.querySelectorAll('textbox')
+var textArea = document.querySelectorAll('textarea')
 console.log(time);
 console.log(timeSlots);
 
@@ -22,6 +23,7 @@ $(function () {
     console.log(text);
     $(this).text(text);
   })};
+  init()
 
   $('button').click(function (event) {
     event.preventDefault();
@@ -32,10 +34,8 @@ $(function () {
     if (textBox !== '') {
       localStorage.setItem(parent, JSON.stringify(textBox));
       console.log('stored');
-      init()
     }
   });
-
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
   // attribute of each time-block be used to conditionally add or remove the
@@ -44,27 +44,28 @@ $(function () {
   $(timeSlots).each(function () {
     var idVal = $(this).attr('id').replace('hour-', '');
     console.log(idVal);
-    if (idVal == time) {
+    var currentHour = moment().hours();
+    if (idVal == currentHour) {
       $(this).addClass('present');
       $(this).removeClass('past');
       $(this).removeClass('future');
-      console.log(idVal + ' is present ' + time)
-    } else if (idVal < time) {
+      console.log(idVal + ' is present ' + currentHour)
+    } else if (idVal < currentHour) {
       $(this).addClass('past');
       $(this).removeClass('present');
       $(this).removeClass('future');
-      console.log(idVal + ' is past ' + time)
-    } else if (idVal > time) {
+      console.log(idVal + ' is past ' + currentHour)
+    } else if (idVal > currentHour) {
       $(this).addClass('future');
       $(this).removeClass('past');
       $(this).removeClass('present');
-      console.log(idVal + ' is future ' + time)
+      console.log(idVal + ' is future ' + currentHour)
     }
   });
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
+  $('header').append(date);
   // TODO: Add code to display the current date in the header of the page.
 });
-
